@@ -4,7 +4,7 @@ metadata:
   labels:
     app: service-cmn
   name: service-cmn
-  namespace: his   #一定要写名称空间
+  namespace: devops   #一定要写名称空间
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -22,7 +22,7 @@ spec:
         app: service-cmn
     spec:
       imagePullSecrets:
-        - name: aliyun-docker-hub  #提前在项目下配置访问阿里云的账号密码
+        - name: harbor-docker-hub  #提前在项目下配置访问阿里云的账号密码
       containers:
         - image: $REGISTRY/$ALIYUNHUB_NAMESPACE/service-cmn:SNAPSHOT-$BUILD_NUMBER
  #         readinessProbe:
@@ -53,7 +53,7 @@ metadata:
   labels:
     app: service-cmn
   name: service-cmn
-  namespace: his
+  namespace: devops
 spec:
   ports:
     - name: http
