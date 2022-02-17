@@ -21,6 +21,8 @@ spec:
       labels:
         app: service-hosp
     spec:
+      nodeSelector:
+        worker: "true"
       imagePullSecrets:
         - name: aliyun-docker-hub  #提前在项目下配置访问阿里云的账号密码
       containers:
