@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: server-gateway
-  name: server-gateway
+    app: ruoyi  #deploy的标生命 
+  name: ruoyi  #deploy的name
   namespace: his   #一定要写名称空间
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   selector:
     matchLabels:
-      app: server-gateway
+      app:  ruoyi  #RS匹配哪些Pod
   strategy:
     rollingUpdate:
       maxSurge: 50%
@@ -19,23 +19,16 @@ spec:
   template:
     metadata:
       labels:
-        app: server-gateway
+        app: ruoyi  #Pod的标签
     spec:
       imagePullSecrets:
         - name: aliyun-docker-hub  #提前在项目下配置访问阿里云的账号密码
       containers:
-        - image: $REGISTRY/$ALIYUNHUB_NAMESPACE/server-gateway:SNAPSHOT-$BUILD_NUMBER
- #         readinessProbe:
- #           httpGet:
- #             path: /actuator/health
- #             port: 8080
- #           timeoutSeconds: 10
- #           failureThreshold: 30
- #           periodSeconds: 5
+        - image: $REGISTRY/$DOCKERHUB_NAMESPACE/ruoyi-admin:SNAPSHOT-$BUILD_NUMBER
           imagePullPolicy: Always
           name: app
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           resources:
             limits:
@@ -51,17 +44,17 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: server-gateway
-  name: server-gateway
+    app: service-ruoyi
+  name: service-ruoyi
   namespace: his
 spec:
   ports:
     - name: http
-      port: 8080
+      port: 80
       protocol: TCP
-      targetPort: 8080
-      nodePort: 32607
+      targetPort: 80
+      NodePort: 30800
   selector:
-    app: server-gateway
+    app: ruoyi  #选择哪些Pod
   sessionAffinity: None
   type: NodePort
