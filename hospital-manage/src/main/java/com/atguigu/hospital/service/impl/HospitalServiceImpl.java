@@ -40,7 +40,7 @@ import java.util.Scanner;
 public class HospitalServiceImpl implements HospitalService {
 
 	@Autowired
-	private ScheduleMapper hospitalMapper;
+	private ScheduleMapper scheduleMapper;
 
     @Autowired
     private OrderInfoMapper orderInfoMapper;
