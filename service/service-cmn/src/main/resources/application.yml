@@ -2,7 +2,7 @@ spring:
   application:
     name: service-cmn
   profiles:
-    active: dev
+    active: prod
 
 
 management:
