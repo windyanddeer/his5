@@ -1,6 +1,11 @@
 FROM openjdk:8-jdk
 LABEL maintainer=leifengyang
 
+#定义时区参数
+ENV TZ=Asia/Shanghai
+
+#设置时区
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
 
 #启动自行加载   服务名-prod.yml配置
 ENV PARAMS="--server.port=8080 --spring.profiles.active=prod --spring.cloud.nacos.server-addr=his-nacos.his:8848 --spring.cloud.nacos.config.file-extension=yml"
